@@ -20,7 +20,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class GIntegrationActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     private static final int SIGN_IN_REQUEST = 100;
     private GoogleApiClient mGoogleApiClient;
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         tvEmail.setVisibility(View.GONE);
                         imgProfilePicture.setVisibility(View.GONE);
                         btnSignOut.setVisibility(View.GONE);
-                        Utils.showToast(MainActivity.this, "SignOut Successfully");
+                        Utils.showToast(GIntegrationActivity.this, "SignOut Successfully");
                     }
                 });
     }

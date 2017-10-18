@@ -55,6 +55,9 @@
     <string name="server_client_id">YOUR_SERVER_CLIENT_ID</string>
 
     <string name="interneterror">No internet connection!</string>
+
+    <string name="facebook_app_id">1991588554417938</string>
+    <string name="fb_login_protocol_scheme">fb1991588554417938</string>
 </resources>
 
 
