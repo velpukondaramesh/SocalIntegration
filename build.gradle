@@ -5,6 +5,7 @@ buildscript {
         maven { url 'https://maven.google.com' }
         jcenter()
         mavenLocal()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'

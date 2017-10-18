@@ -21,6 +21,8 @@
         android:background="@drawable/gplus_btn"
         android:onClick="onClickGoogle" />
 
+
+
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
