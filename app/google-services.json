@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "72589368074",
+    "project_id": "socialintegration-31a47"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:72589368074:android:d0b4afe1b8459362",
+        "android_client_info": {
+          "package_name": "com.zappstech.socalintegration"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "72589368074-kbmtdj900o03ce6lrfk368aqjv9l0nla.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zappstech.socalintegration",
+            "certificate_hash": "ad7b1ce5eada3d566af95f4b23e8c14b0c873ad4"
+          }
+        },
+        {
+          "client_id": "72589368074-no39qthjnebusclv365sgsforn9s0t5v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvdN0F5vYn0kAZcedZUlnjJd63L5O5hJI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
