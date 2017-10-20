@@ -83,21 +83,6 @@ public class GIntegrationActivity extends AppCompatActivity implements View.OnCl
                     strProfilePicture = uri.toString();
                 }
                 Utils.showToast(this, "Login Successfully.");
-                /*//Name
-                if (name != null) {
-                    tvName.setVisibility(View.VISIBLE);
-                    tvName.setText("Name : " + name);
-                }
-                //Email
-                if (email != null) {
-                    tvEmail.setVisibility(View.VISIBLE);
-                    tvEmail.setText("Email : " + email);
-                }
-                //Profile Picture
-                if (strProfilePicture != null) {
-                    imgProfilePicture.setVisibility(View.VISIBLE);
-                    Picasso.with(this).load(strProfilePicture).into(imgProfilePicture);
-                }*/
 
                 Intent main = new Intent(GIntegrationActivity.this, Home_Activity.class);
                 main.putExtra("name", name);
