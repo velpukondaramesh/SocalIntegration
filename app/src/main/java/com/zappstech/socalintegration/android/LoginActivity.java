@@ -15,6 +15,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -31,6 +37,8 @@ import com.zappstech.socalintegration.model.LoginResponse;
 import com.zappstech.socalintegration.model.User;
 import com.zappstech.socalintegration.social.GIntegrationActivity;
 import com.zappstech.socalintegration.util.Utils;
+
+import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -68,6 +76,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     //google implementation
     private static final int SIGN_IN_REQUEST = 100;
     private GoogleApiClient mGoogleApiClient;
+    //facebook implementation
+    private CallbackManager callbackManager;
+    FacebookCallback<LoginResult> callback;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,28 +97,46 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
+        //facebook
+        callbackManager = CallbackManager.Factory.create();
     }
 
     @OnClick({R.id.btn_signin, R.id.btn_signup, R.id.txt_forgot, R.id.fbLogin, R.id.gLogin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_signin:
-                verifyingLoginDetailsFromServer();
+                if (Utils.isNetworkAvailable(this)) {
+                    verifyingLoginDetailsFromServer();
+                } else {
+                    Utils.showToast(this, getResources().getString(R.string.interneterror));
+                }
                 break;
             case R.id.btn_signup:
-                Intent in_registration = new Intent(LoginActivity.this, RegistrationActivity.class);
-                startActivity(in_registration);
+                if (Utils.isNetworkAvailable(this)) {
+                    Intent in_registration = new Intent(LoginActivity.this, RegistrationActivity.class);
+                    startActivity(in_registration);
+                } else {
+                    Utils.showToast(this, getResources().getString(R.string.interneterror));
+                }
                 break;
             case R.id.txt_forgot:
-                Toast.makeText(getApplicationContext(), "Coming soon", Toast.LENGTH_SHORT).show();
+                if (Utils.isNetworkAvailable(this)) {
+                    Toast.makeText(getApplicationContext(), "Coming soon", Toast.LENGTH_SHORT).show();
+                } else {
+                    Utils.showToast(this, getResources().getString(R.string.interneterror));
+                }
                 break;
             case R.id.fbLogin:
-                Intent in_fb = new Intent(LoginActivity.this, FbIntegrationActivity.class);
-                startActivity(in_fb);
+                if (Utils.isNetworkAvailable(this)) {
+                    facebookLoginImplemented();
+                    fbLogin.setReadPermissions("user_friends", "email", "public_profile");
+                    fbLogin.registerCallback(callbackManager, callback);
+                } else {
+                    Utils.showToast(this, getResources().getString(R.string.interneterror));
+                }
                 break;
             case R.id.gLogin:
-                /*Intent in_google = new Intent(LoginActivity.this, GIntegrationActivity.class);
-                startActivity(in_google);*/
                 if (Utils.isNetworkAvailable(this)) {
                     signIn();
                 } else {
@@ -115,6 +144,53 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 }
                 break;
         }
+    }
+
+    //facebook implementation
+    private void facebookLoginImplemented() {
+        callback = new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                Log.v("LoginActivity", response.toString());
+
+                                try {
+                                    // Application code
+                                    String email = object.getString("email");
+                                    String name = object.getString("name");
+                                    String id = object.getString("id");
+                                    String image_url = "http://graph.facebook.com/" + id + "/picture?type=large";
+
+                                    Intent main = new Intent(LoginActivity.this, Home_Activity.class);
+                                    main.putExtra("name", name);
+                                    main.putExtra("email", email);
+                                    main.putExtra("imageUrl", image_url);
+                                    startActivity(main);
+
+                                } catch (Exception e) {
+
+                                }
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender,birthday");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+            }
+        };
     }
 
     private void verifyingLoginDetailsFromServer() {
@@ -180,6 +256,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, SIGN_IN_REQUEST);
     }
+
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             try {
@@ -219,5 +296,20 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
         }
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    protected void onStop() {
+        super.onStop();
     }
 }
