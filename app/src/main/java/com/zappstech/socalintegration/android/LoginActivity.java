@@ -15,13 +15,13 @@ import android.widget.Toast;
 
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.SignInButton;
-import com.zappstech.socalintegration.FbIntegrationActivity;
+import com.zappstech.socalintegration.social.FbIntegrationActivity;
 import com.zappstech.socalintegration.R;
 import com.zappstech.socalintegration.api.ApiService;
 import com.zappstech.socalintegration.api.RetroClient;
 import com.zappstech.socalintegration.model.LoginResponse;
-import com.zappstech.socalintegration.model.RegistrationResponse;
 import com.zappstech.socalintegration.model.User;
+import com.zappstech.socalintegration.social.GIntegrationActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(in_fb);
                 break;
             case R.id.gLogin:
-                Intent in_google = new Intent(LoginActivity.this, FbIntegrationActivity.class);
+                Intent in_google = new Intent(LoginActivity.this, GIntegrationActivity.class);
                 startActivity(in_google);
                 break;
         }
@@ -110,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (obj_loginResponse.getError()) {
                         User obj_user = obj_loginResponse.getUser();
                         Toast.makeText(getApplicationContext(), "" + obj_user.getName(), Toast.LENGTH_LONG).show();
+                        //startIntentFromLogin(obj_user);
                     } else {
                         Toast.makeText(getApplicationContext(), "Invalide User", Toast.LENGTH_LONG).show();
                     }
@@ -128,6 +129,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void startIntentFromLogin(User obj) {
+        Intent in = new Intent(LoginActivity.this, Home_Activity.class);
+        in.putExtra("name", obj.getName());
+        in.putExtra("email", obj.getEmail());
+        in.putExtra("imageUrl", obj.getDateBirth());
+        startActivity(in);
     }
 
     private void showDialog() {

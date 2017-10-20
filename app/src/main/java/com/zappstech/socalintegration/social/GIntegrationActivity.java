@@ -1,4 +1,4 @@
-package com.zappstech.socalintegration;
+package com.zappstech.socalintegration.social;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -19,6 +19,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.squareup.picasso.Picasso;
+import com.zappstech.socalintegration.R;
+import com.zappstech.socalintegration.android.Home_Activity;
+import com.zappstech.socalintegration.util.Utils;
 
 public class GIntegrationActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
@@ -80,7 +83,7 @@ public class GIntegrationActivity extends AppCompatActivity implements View.OnCl
                     strProfilePicture = uri.toString();
                 }
                 Utils.showToast(this, "Login Successfully.");
-                //Name
+                /*//Name
                 if (name != null) {
                     tvName.setVisibility(View.VISIBLE);
                     tvName.setText("Name : " + name);
@@ -94,9 +97,15 @@ public class GIntegrationActivity extends AppCompatActivity implements View.OnCl
                 if (strProfilePicture != null) {
                     imgProfilePicture.setVisibility(View.VISIBLE);
                     Picasso.with(this).load(strProfilePicture).into(imgProfilePicture);
-                }
+                }*/
+
+                Intent main = new Intent(GIntegrationActivity.this, Home_Activity.class);
+                main.putExtra("name", name);
+                main.putExtra("email", email);
+                main.putExtra("imageUrl", strProfilePicture);
+                startActivity(main);
                 //Sign Out
-                btnSignOut.setVisibility(View.VISIBLE);
+                btnSignOut.setVisibility(View.GONE);
             } catch (Exception e) {
                 e.printStackTrace();
             }

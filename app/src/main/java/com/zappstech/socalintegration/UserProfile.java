@@ -19,6 +19,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.zappstech.socalintegration.social.GIntegrationActivity;
 
 import java.io.InputStream;
 

@@ -1,12 +1,10 @@
-package com.zappstech.socalintegration;
+package com.zappstech.socalintegration.social;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -18,6 +16,9 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.zappstech.socalintegration.R;
+import com.zappstech.socalintegration.UserProfile;
+import com.zappstech.socalintegration.android.Home_Activity;
 
 import org.json.JSONObject;
 
@@ -73,7 +74,7 @@ public class FbIntegrationActivity extends AppCompatActivity {
                                     String id = object.getString("id");
                                     String image_url = "http://graph.facebook.com/" + id + "/picture?type=large";
 
-                                    Intent main = new Intent(FbIntegrationActivity.this, UserProfile.class);
+                                    Intent main = new Intent(FbIntegrationActivity.this, Home_Activity.class);
                                     main.putExtra("name", name);
                                     main.putExtra("email", email);
                                     main.putExtra("imageUrl", image_url);

@@ -1,4 +1,4 @@
-package com.zappstech.socalintegration;
+package com.zappstech.socalintegration.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
