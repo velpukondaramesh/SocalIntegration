@@ -84,6 +84,8 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
 
+        toolbar.setTitle("Registration");
+
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
@@ -140,6 +142,9 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void sendDataToServer() {
+        pDialog.setMessage("Registering ...");
+        showDialog();
+
         ApiService api = RetroClient.getApiService();
         String name = inputFirstname.getText().toString();
         String email = inputEmail.getText().toString();
