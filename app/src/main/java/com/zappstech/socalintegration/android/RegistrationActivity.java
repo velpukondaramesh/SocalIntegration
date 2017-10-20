@@ -72,7 +72,7 @@ public class RegistrationActivity extends AppCompatActivity {
     @Bind(R.id.btn_signup)
     Button btnSignup;
 
-    private String[] list = new String[]{"Clinic", "Hospital", "Lab", "Other"};
+    private String[] list = new String[]{"Indian", "USA", "UK", "China"};
     private String selected_spinner;
     private DatePickerDialog fromDatePickerDialog;
     private SimpleDateFormat dateFormatter;
