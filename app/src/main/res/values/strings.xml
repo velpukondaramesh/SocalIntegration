@@ -66,7 +66,8 @@
     <string name="hint_name">Fullname</string>
     <string name="hint_fname">First Name</string>
     <string name="hint_lname">Last Name</string>
-    <string name="btn_login">LOGIN</string>
+    <string name="btn_signin">SIGN IN</string>
+    <string name="btn_signup">SIGN UP</string>
     <string name="btn_submit">SUBMIT</string>
     <string name="btn_register">REGISTER</string>
     <string name="btn_link_to_register">Not a member? Sign up now.</string>
