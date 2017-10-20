@@ -53,7 +53,7 @@ public interface ApiService {
     getExampleMethod("Basic " + token, id);*/
 
     @FormUrlEncoded
-    @POST("insertMembership")
+    @POST("newUser")
     Call<RegistrationResponse> insertNewUser(@Field("name") String name,
                                              @Field("email") String email,
                                              @Field("password") String password,
