@@ -162,8 +162,7 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
                 hideDialog();
                 if (response.isSuccessful()) {
-                    RegistrationResponse obj_responseModel = new RegistrationResponse();
-                    obj_responseModel = response.body();
+                    RegistrationResponse obj_responseModel = response.body();
                     if (obj_responseModel.getError()) {
                         Toast.makeText(getApplicationContext(), obj_responseModel.getData(), Toast.LENGTH_LONG).show();
                     } else {
@@ -177,7 +176,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RegistrationResponse> call, Throwable t) {
-                Log.i("Hello", "" + t);
                 hideDialog();
                 Toast.makeText(getApplicationContext(), "Throwable" + t, Toast.LENGTH_LONG).show();
             }

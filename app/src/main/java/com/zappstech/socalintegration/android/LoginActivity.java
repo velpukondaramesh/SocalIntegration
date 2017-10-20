@@ -21,6 +21,7 @@ import com.zappstech.socalintegration.api.ApiService;
 import com.zappstech.socalintegration.api.RetroClient;
 import com.zappstech.socalintegration.model.LoginResponse;
 import com.zappstech.socalintegration.model.RegistrationResponse;
+import com.zappstech.socalintegration.model.User;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -105,19 +106,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 hideDialog();
                 if (response.isSuccessful()) {
-                    /*RegistrationResponse obj_responseModel = new RegistrationResponse();
-                    obj_responseModel = response.body();
-                    if (obj_responseModel.getError()) {
-                        Toast.makeText(getApplicationContext(), obj_responseModel.getData(), Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(), obj_responseModel.getData(), Toast.LENGTH_LONG).show();
-                    }*/
-
-                    LoginResponse obj_loginResponse = new LoginResponse();
-                    obj_loginResponse = response.body();
-
+                    LoginResponse obj_loginResponse = response.body();
                     if (obj_loginResponse.getError()) {
-                        Toast.makeText(getApplicationContext(), "" + obj_loginResponse.getUser(), Toast.LENGTH_LONG).show();
+                        User obj_user = obj_loginResponse.getUser();
+                        Toast.makeText(getApplicationContext(), "" + obj_user.getName(), Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "Invalide User", Toast.LENGTH_LONG).show();
                     }
