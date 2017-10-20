@@ -1,6 +1,7 @@
 package com.zappstech.socalintegration.api;
 
 
+import com.zappstech.socalintegration.model.RegistrationResponse;
 
 import java.util.List;
 
@@ -50,5 +51,15 @@ public interface ApiService {
 
     /*call it from activity
     getExampleMethod("Basic " + token, id);*/
+
+    @FormUrlEncoded
+    @POST("insertMembership")
+    Call<RegistrationResponse> insertNewUser(@Field("name") String name,
+                                             @Field("email") String email,
+                                             @Field("password") String password,
+                                             @Field("contact") String contact,
+                                             @Field("gender") String gender,
+                                             @Field("date_birth") String date_birth,
+                                             @Field("country") String country);
 
 }
