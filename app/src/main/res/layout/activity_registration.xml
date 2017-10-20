@@ -92,8 +92,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:textColor="#000"
-                android:text="Gender" />
+                android:text="Gender"
+                android:textColor="#000" />
 
             <RadioGroup
                 android:id="@+id/radioSex"
@@ -141,7 +141,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="20dp"
                 android:background="@color/colorPrimary"
-                android:text="@string/btn_register"
+                android:text="@string/btn_submit"
                 android:textColor="@android:color/white" />
 
 
