@@ -58,6 +58,23 @@
 
     <string name="facebook_app_id">1991588554417938</string>
     <string name="fb_login_protocol_scheme">fb1991588554417938</string>
+
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_newpassword">New Password</string>
+    <string name="hint_confirmpassword">Confirm Password</string>
+    <string name="hint_name">Fullname</string>
+    <string name="hint_fname">First Name</string>
+    <string name="hint_lname">Last Name</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_submit">SUBMIT</string>
+    <string name="btn_register">REGISTER</string>
+    <string name="btn_link_to_register">Not a member? Sign up now.</string>
+    <string name="hint_contact">Contact</string>
+    <string name="hint_location">Location</string>
+    <string name="radio_male">Male</string>
+    <string name="radio_female">Female</string>
+    <string name="hint_date_birth">Date of Birth</string>
 </resources>
 
 
