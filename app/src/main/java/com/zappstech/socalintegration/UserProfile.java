@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.share.model.ShareLinkContent;
@@ -50,11 +51,13 @@ public class UserProfile extends AppCompatActivity {
 
         Bundle inBundle = getIntent().getExtras();
         String name = inBundle.get("name").toString();
-        String surname = inBundle.get("surname").toString();
+        String emil = inBundle.get("email").toString();
         String imageUrl = inBundle.get("imageUrl").toString();
 
         TextView nameView = (TextView) findViewById(R.id.nameAndSurname);
-        nameView.setText("" + name + " " + surname);
+        TextView email = (TextView) findViewById(R.id.email);
+        nameView.setText("" + name);
+        email.setText("" + emil);
         Button logout = (Button) findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +68,9 @@ public class UserProfile extends AppCompatActivity {
                 finish();
             }
         });
-        new UserProfile.DownloadImage((ImageView) findViewById(R.id.profileImage)).execute(imageUrl);
+        ImageView imageView = (ImageView) findViewById(R.id.profileImage);
+        Glide.with(this).load(imageUrl).into(imageView);
+        //new UserProfile.DownloadImage((ImageView) findViewById(R.id.profileImage)).execute(imageUrl);
     }
 
     public class DownloadImage extends AsyncTask<String, Void, Bitmap> {
