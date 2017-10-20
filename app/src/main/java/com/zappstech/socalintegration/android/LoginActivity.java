@@ -1,22 +1,33 @@
 package com.zappstech.socalintegration.android;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.SignInButton;
+import com.zappstech.socalintegration.FbIntegrationActivity;
 import com.zappstech.socalintegration.R;
+import com.zappstech.socalintegration.api.ApiService;
+import com.zappstech.socalintegration.api.RetroClient;
+import com.zappstech.socalintegration.model.LoginResponse;
+import com.zappstech.socalintegration.model.RegistrationResponse;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Ram on 10/20/2017.
@@ -59,16 +70,72 @@ public class LoginActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_signin:
+                verifyingLoginDetailsFromServer();
                 break;
             case R.id.btn_signup:
+                Intent in_registration = new Intent(LoginActivity.this, RegistrationActivity.class);
+                startActivity(in_registration);
                 break;
             case R.id.txt_forgot:
+                Toast.makeText(getApplicationContext(), "Coming soon", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fbLogin:
+                Intent in_fb = new Intent(LoginActivity.this, FbIntegrationActivity.class);
+                startActivity(in_fb);
                 break;
             case R.id.gLogin:
+                Intent in_google = new Intent(LoginActivity.this, FbIntegrationActivity.class);
+                startActivity(in_google);
                 break;
         }
+    }
+
+    private void verifyingLoginDetailsFromServer() {
+        pDialog.setTitle("Please wait...");
+        showDialog();
+
+        String email = inputEmail.getText().toString();
+        String password = inputPassword.getText().toString();
+
+        ApiService api = RetroClient.getApiService();
+        Call<LoginResponse> call = api.Login(email, password);
+
+        call.enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                hideDialog();
+                if (response.isSuccessful()) {
+                    /*RegistrationResponse obj_responseModel = new RegistrationResponse();
+                    obj_responseModel = response.body();
+                    if (obj_responseModel.getError()) {
+                        Toast.makeText(getApplicationContext(), obj_responseModel.getData(), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), obj_responseModel.getData(), Toast.LENGTH_LONG).show();
+                    }*/
+
+                    LoginResponse obj_loginResponse = new LoginResponse();
+                    obj_loginResponse = response.body();
+
+                    if (obj_loginResponse.getError()) {
+                        Toast.makeText(getApplicationContext(), "" + obj_loginResponse.getUser(), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Invalide User", Toast.LENGTH_LONG).show();
+                    }
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Something Wrong", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Log.i("Hello", "" + t);
+                hideDialog();
+                Toast.makeText(getApplicationContext(), "Throwable" + t, Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     private void showDialog() {

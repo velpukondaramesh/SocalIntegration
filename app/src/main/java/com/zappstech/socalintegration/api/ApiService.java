@@ -1,6 +1,7 @@
 package com.zappstech.socalintegration.api;
 
 
+import com.zappstech.socalintegration.model.LoginResponse;
 import com.zappstech.socalintegration.model.RegistrationResponse;
 
 import java.util.List;
@@ -61,5 +62,10 @@ public interface ApiService {
                                              @Field("gender") String gender,
                                              @Field("date_birth") String date_birth,
                                              @Field("country") String country);
+
+    @FormUrlEncoded
+    @POST("login")
+    Call<LoginResponse> Login(@Field("email") String email,
+                              @Field("password") String password);
 
 }
